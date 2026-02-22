@@ -1,13 +1,16 @@
 import streamlit as st
 from google.cloud import bigquery
 import pandas as pd
-import plotly.graph_objects as go
 import datetime
 
+# ---------------------------
+# Page Configuration
+# ---------------------------
+st.set_page_config(page_title="Business Funnel Dashboard", layout="wide")
+st.title("Business Funnel Dashboard")
+
+# ---------------------------
 # Apply Custom CSS for Theme
-# ---------------------------
-# ---------------------------
-# Custom CSS for header
 # ---------------------------
 st.markdown(
     """
@@ -37,14 +40,9 @@ st.markdown(
 )
 
 # ---------------------------
-# Page Configuration
-# ---------------------------
-st.set_page_config(page_title="Business Funnel Dashboard", layout="wide")
-st.title("Business Funnel Dashboard")
-
-# ---------------------------
 # Create BigQuery Client
 # ---------------------------
+# Uses credentials from environment variable GOOGLE_APPLICATION_CREDENTIALS
 client = bigquery.Client()
 
 # =====================================================
@@ -73,25 +71,16 @@ if not df.empty:
     st.subheader("Yearly KPI Data")
     st.dataframe(df)
 
-    # ---------------------------
     # Revenue Over Time (Last 10 Years)
-    # ---------------------------
     current_year = datetime.datetime.now().year
     all_years = pd.DataFrame({"year": list(range(current_year-9, current_year+1))})
-
-    # Merge with actual data, fill missing revenue with 0
     df_full = all_years.merge(df, on="year", how="left").fillna(0)
-
     st.subheader("Revenue Over Time")
-    # st.line_chart(df_full.set_index("year")["total_revenue"])
-    st.line_chart(df_full.set_index(df_full["year"].astype(int))["total_revenue"])
+    st.line_chart(df_full.set_index("year")["total_revenue"])
 
 else:
     st.warning("No KPI data available.")
 
-# =====================================================
-# FUNNEL BREAKDOWN SECTION
-# =====================================================
 # =====================================================
 # FUNNEL BREAKDOWN SECTION (Simpler)
 # =====================================================
@@ -105,7 +94,6 @@ FROM `event-data-pipeline-488104.event_pipeline.funnel_mart`
 funnel_df = client.query(funnel_query).to_dataframe()
 
 if not funnel_df.empty:
-    # Correct column names
     stages = ["Page View", "Add to Cart", "Checkout", "Purchase"]
     counts = [
         funnel_df.loc[0, "views"],
@@ -114,21 +102,11 @@ if not funnel_df.empty:
         funnel_df.loc[0, "purchases"],
     ]
 
-    # Create DataFrame for simple chart
-    funnel_chart_df = pd.DataFrame({
-        "Stage": stages,
-        "Users": counts
-    }).set_index("Stage")
-
-    # Streamlit simple bar chart
+    funnel_chart_df = pd.DataFrame({"Stage": stages, "Users": counts}).set_index("Stage")
     st.bar_chart(funnel_chart_df)
 
-
-    # ------------------------------------------
-    # Conversion Rate Calculation
-    # ------------------------------------------
-# Conversion Rate (capped at 100%)
-views = funnel_df.loc[0, "views"]
-purchases = funnel_df.loc[0, "purchases"]
-conversion_rate = min((purchases / views * 100), 100) if views > 0 else 0
-st.metric("Overall Conversion Rate", f"{conversion_rate:.2f}%")
+    # Conversion Rate
+    views = funnel_df.loc[0, "views"]
+    purchases = funnel_df.loc[0, "purchases"]
+    conversion_rate = min((purchases / views * 100), 100) if views > 0 else 0
+    st.metric("Overall Conversion Rate", f"{conversion_rate:.2f}%")
