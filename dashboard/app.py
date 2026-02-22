@@ -6,17 +6,29 @@ import datetime
 
 # Apply Custom CSS for Theme
 # ---------------------------
+# ---------------------------
+# Custom CSS for header
+# ---------------------------
 st.markdown(
     """
     <style>
+    /* Page background */
     .stApp {
-        background-color: #f0f2f6;
+        background-color: #f0f2f6;  /* light grey background */
     }
-    .css-1d391kg {  /* main container */
-        background-color: #f0f2f6;
+
+    /* Top header */
+    .css-1v3fvcr {  /* Streamlit title container class */
+        background-color: #000000;  /* black header */
+        color: white;               /* white text */
+        padding: 10px;
+        border-radius: 5px;
     }
-    h1 {
-        color: #1f77b4;
+
+    /* Title font size & style */
+    .css-1v3fvcr h1 {
+        color: white;
+        font-size: 2.5rem;
         font-family: 'Arial Black', sans-serif;
     }
     </style>
@@ -80,6 +92,9 @@ else:
 # =====================================================
 # FUNNEL BREAKDOWN SECTION
 # =====================================================
+# =====================================================
+# FUNNEL BREAKDOWN SECTION (Simpler)
+# =====================================================
 st.subheader("Funnel Breakdown")
 
 funnel_query = """
@@ -90,7 +105,7 @@ FROM `event-data-pipeline-488104.event_pipeline.funnel_mart`
 funnel_df = client.query(funnel_query).to_dataframe()
 
 if not funnel_df.empty:
-    # Use the correct column names from BigQuery
+    # Correct column names
     stages = ["Page View", "Add to Cart", "Checkout", "Purchase"]
     counts = [
         funnel_df.loc[0, "views"],
@@ -99,13 +114,15 @@ if not funnel_df.empty:
         funnel_df.loc[0, "purchases"],
     ]
 
-    # Plotly Funnel Chart
-    fig = go.Figure(go.Funnel(
-        y=stages,
-        x=counts,
-        textinfo="value+percent initial"
-    ))
-    st.plotly_chart(fig, use_container_width=True)
+    # Create DataFrame for simple chart
+    funnel_chart_df = pd.DataFrame({
+        "Stage": stages,
+        "Users": counts
+    }).set_index("Stage")
+
+    # Streamlit simple bar chart
+    st.bar_chart(funnel_chart_df)
+
 
     # ------------------------------------------
     # Conversion Rate Calculation
