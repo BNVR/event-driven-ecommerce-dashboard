@@ -7,7 +7,7 @@ client = bigquery.Client()
 # Read processed events
 df = pd.read_csv("data/processed_events.csv")
 
-# Your project ID
+# project ID
 project_id = "event-data-pipeline-488104"
 
 # Target table

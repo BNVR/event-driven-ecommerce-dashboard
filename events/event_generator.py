@@ -16,14 +16,14 @@ def generate_event():
         "event_timestamp": fake.date_time_between(
             start_date="-3y",
             end_date="now"
-        ).isoformat(),  # ✅ important
+        ).isoformat(),
         "user_id": fake.uuid4(),
         "session_id": str(uuid.uuid4()),
         "product_id": random.randint(1000, 1100),
         "price": round(random.uniform(10, 500), 2)
     }
 
-def generate_events(n=5000):  # increase volume
+def generate_events(n=5000):
     events = [generate_event() for _ in range(n)]
     return pd.DataFrame(events)
 
