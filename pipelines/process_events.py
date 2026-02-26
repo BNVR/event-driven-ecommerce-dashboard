@@ -26,7 +26,7 @@ def incremental_process():
         print("No new events to process.")
         return
 
-    # Example transformation
+    # transformation
     new_events["event_timestamp"] = pd.to_datetime(new_events["event_timestamp"])
 
     # Append to processed
