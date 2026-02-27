@@ -90,8 +90,7 @@ git lfs track "*.csv"
 streamlit run dashboard/app.py
 
 
-<img width="959" height="449" alt="pic1" src="https://github.com/user-attachments/assets/d56cf3a6-efa2-423f-8dee-ecfb2d8e7a59" />
+<p align="center"><img src="assets\pic1.png" width ="850"><br><br></p>
 
-<img width="959" height="450" alt="pic3" src="https://github.com/user-attachments/assets/c6aeb125-245d-4fd6-b474-aaae57c2bd25" />
-
-<img width="959" height="445" alt="pic2" src="https://github.com/user-attachments/assets/6372bfe1-7169-4cf9-9411-88346681ed42" />
+<p align="center"><img src="assets\pic2.png" width ="850"><br><br></p>
+<p align="center"><img src="assets\pic3.png" width ="850"><br><br></p>
