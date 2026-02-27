@@ -89,6 +89,10 @@ git lfs track "*.csv"
 # Run the dashboard
 streamlit run dashboard/app.py
 
+
+
+
+
 <p align="center">
   <img src="assets/pic1.png" width="850"><br><br>
 </p>
@@ -99,4 +103,5 @@ streamlit run dashboard/app.py
 
 <p align="center">
   <img src="assets/pic3.png" width="850"><br><br>
+
 </p>
