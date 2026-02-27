@@ -73,6 +73,20 @@ This project implements a complete **Event-Driven Data Pipeline for E-commerce**
 - Git & Git LFS
 - Streamlit
 
+### Samples
+<p align="center">
+  <img src="./assets/pic1.png" width="850"/>
+</p>
+
+<p align="center">
+  <img src="./assets/pic2.png" width="850"/>
+</p>
+
+<p align="center">
+  <img src="./assets/pic3.png" width="850"/>
+</p>
+
+
 ### Installation
 ```bash
 # Clone the repository
@@ -90,17 +104,4 @@ git lfs track "*.csv"
 streamlit run dashboard/app.py
 
 
-
-
-<p align="center">
-  <img src="./assets/pic1.png" width="850"/>
-</p>
-
-<p align="center">
-  <img src="./assets/pic2.png" width="850"/>
-</p>
-
-<p align="center">
-  <img src="./assets/pic3.png" width="850"/>
-</p>
 
