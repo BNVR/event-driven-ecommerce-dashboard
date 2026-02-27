@@ -92,16 +92,15 @@ streamlit run dashboard/app.py
 
 
 
-
 <p align="center">
-  <img src="assets/pic1.png" width="850"><br><br>
+  <img src="./assets/pic1.png" width="850"/>
 </p>
 
 <p align="center">
-  <img src="assets/pic2.png" width="850"><br><br>
+  <img src="./assets/pic2.png" width="850"/>
 </p>
 
 <p align="center">
-  <img src="assets/pic3.png" width="850"><br><br>
-
+  <img src="./assets/pic3.png" width="850"/>
 </p>
+
